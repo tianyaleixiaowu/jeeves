@@ -21,7 +21,7 @@
     </appender>
 
 
-    <logger name="com.mindata.ecserver" level="INFO">
+    <logger name="com.cherry.jeeves" level="INFO">
         <!--<appender-ref ref="CONSOLE"/>-->
         <appender-ref ref="MY_FILE"/>
     </logger>
