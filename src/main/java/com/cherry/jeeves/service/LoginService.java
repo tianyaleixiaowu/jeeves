@@ -163,12 +163,14 @@ public class LoginService {
                 syncServie.listen();
             }
         } catch (IOException | NotFoundException | WriterException | URISyntaxException ex) {
-            throw new WechatException(ex);
+            //throw new WechatException(ex);
+            ex.printStackTrace();
         } catch (WechatQRExpiredException ex) {
             if (AUTO_RELOGIN_WHEN_QRCODE_EXPIRED && qrRefreshTimes <= MAX_QR_REFRESH_TIMES) {
                 login();
             } else {
-                throw new WechatException(ex);
+                //throw new WechatException(ex);
+                ex.printStackTrace();
             }
         }
     }
