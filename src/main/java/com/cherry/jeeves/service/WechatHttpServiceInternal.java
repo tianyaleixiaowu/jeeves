@@ -417,18 +417,24 @@ class WechatHttpServiceInternal {
         customHeader.setAccept(Arrays.asList(MediaType.ALL));
         customHeader.set(HttpHeaders.REFERER, hostUrl + "/");
         HeaderUtils.assign(customHeader, getHeader);
-        ResponseEntity<String> responseEntity
-                = restTemplate.exchange(uri, HttpMethod.GET, new HttpEntity<>(customHeader), String.class);
-        String body = responseEntity.getBody();
-        Matcher matcher = pattern.matcher(body);
-        if (!matcher.find()) {
+        try {
+            ResponseEntity<String> responseEntity
+                    = restTemplate.exchange(uri, HttpMethod.GET, new HttpEntity<>(customHeader), String.class);
+            String body = responseEntity.getBody();
+            Matcher matcher = pattern.matcher(body);
+            if (!matcher.find()) {
+                return null;
+            } else {
+                SyncCheckResponse result = new SyncCheckResponse();
+                result.setRetcode(Integer.valueOf(matcher.group(1)));
+                result.setSelector(Integer.valueOf(matcher.group(2)));
+                return result;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
             return null;
-        } else {
-            SyncCheckResponse result = new SyncCheckResponse();
-            result.setRetcode(Integer.valueOf(matcher.group(1)));
-            result.setSelector(Integer.valueOf(matcher.group(2)));
-            return result;
         }
+
     }
 
     /**
