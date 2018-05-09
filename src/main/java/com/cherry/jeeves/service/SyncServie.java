@@ -52,6 +52,9 @@ public class SyncServie {
                 cacheService.getBaseRequest().getSid(),
                 cacheService.getBaseRequest().getSkey(),
                 cacheService.getSyncKey());
+        if (syncCheckResponse == null) {
+            return;
+        }
         int retCode = syncCheckResponse.getRetcode();
         int selector = syncCheckResponse.getSelector();
         logger.info(String.format("[SYNCCHECK] retcode = %s, selector = %s", retCode, selector));
