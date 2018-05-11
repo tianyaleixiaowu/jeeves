@@ -7,7 +7,6 @@ import com.cherry.jeeves.domain.shared.*;
 import com.cherry.jeeves.enums.MessageType;
 import com.cherry.jeeves.enums.RetCode;
 import com.cherry.jeeves.enums.Selector;
-import com.cherry.jeeves.exception.WechatException;
 import com.cherry.jeeves.utils.WechatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -71,10 +70,12 @@ public class SyncServie {
             } else if (selector == Selector.UNKNOWN6.getCode()) {
                 sync();
             } else if (selector != Selector.NORMAL.getCode()) {
-                throw new WechatException("syncCheckResponse ret = " + retCode);
+                //throw new WechatException("syncCheckResponse ret = " + retCode);
+                logger.error("syncCheckResponse ret = " + retCode);
             }
         } else {
-            throw new WechatException("syncCheckResponse selector = " + selector);
+           // throw new WechatException("syncCheckResponse selector = " + selector);
+            logger.error("syncCheckResponse selector = " + retCode);
         }
     }
 
