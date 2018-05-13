@@ -13,7 +13,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -64,10 +63,10 @@ public class MessageHandlerImpl implements MessageHandler {
         logger.info("thumbImageUrl:" + thumbImageUrl);
         logger.info("fullImageUrl:" + fullImageUrl);
 //        将图片保存在本地
-        byte[] data = wechatHttpService.downloadImage(thumbImageUrl);
-        FileOutputStream fos = new FileOutputStream("thumb.jpg");
-        fos.write(data);
-        fos.close();
+//        byte[] data = wechatHttpService.downloadImage(thumbImageUrl);
+//        FileOutputStream fos = new FileOutputStream("thumb.jpg");
+//        fos.write(data);
+//        fos.close();
     }
 
     @Override
