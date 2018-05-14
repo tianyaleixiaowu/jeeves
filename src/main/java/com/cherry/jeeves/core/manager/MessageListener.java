@@ -2,6 +2,7 @@ package com.cherry.jeeves.core.manager;
 
 import com.cherry.jeeves.core.util.Common;
 import com.cherry.jeeves.domain.shared.Message;
+import com.cherry.jeeves.service.WechatHttpService;
 import com.cherry.jeeves.utils.MessageUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,15 +22,18 @@ public class MessageListener {
     private UserManager userManager;
     @Resource
     private MessageManager messageManager;
+    @Resource
+    private WechatHttpService wechatHttpService;
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     /**
      * 收到新消息
      */
-    public void messageReceive(Message message) throws IOException {
+    public void messageReceive(Message message) throws Exception {
         String roomId = message.getFromUserName();
         //将room里的所有人都保存起来
         userManager.dealRoomUser(roomId);
+
         //发消息的人
         String msgSender = MessageUtils.getSenderOfChatRoomTextMessage(message.getContent());
         String senderNickname = userManager.findNicknameById(roomId, msgSender);

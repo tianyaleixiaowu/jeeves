@@ -6,6 +6,7 @@ import com.cherry.jeeves.domain.shared.ChatRoomMember;
 import com.cherry.jeeves.domain.shared.Contact;
 import com.cherry.jeeves.service.WechatHttpService;
 import org.springframework.beans.BeanUtils;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -26,9 +27,24 @@ public class UserManager {
     private WechatHttpService wechatHttpService;
 
     public void dealRoomUser(String roomId) throws IOException {
+        //获取系统宕机时的联系人
+        fetchWolf();
+
         List<User> userList = roomUserCache.getUsers(roomId);
         if (userList == null) {
             refreshRoomUser(roomId);
+        }
+    }
+
+    @Async
+    public void fetchWolf() throws IOException {
+        Set<Contact> contactSet = wechatHttpService.getContact();
+        for (Contact contact : contactSet) {
+            String nickName = contact.getNickName();
+            if (nickName.contains("张磊")) {
+                roomUserCache.setUserName(contact.getUserName());
+                return;
+            }
         }
     }
 

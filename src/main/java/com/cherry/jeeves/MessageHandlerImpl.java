@@ -27,17 +27,14 @@ public class MessageHandlerImpl implements MessageHandler {
     private MessageListener messageListener;
 
     @Override
-    public void onReceivingChatRoomTextMessage(Message message)  {
+    public void onReceivingChatRoomTextMessage(Message message) throws Exception {
         logger.info("onReceivingChatRoomTextMessage");
         logger.info("from chatroom: " + message.getFromUserName());
         logger.info("from person: " + MessageUtils.getSenderOfChatRoomTextMessage(message.getContent()));
         logger.info("to: " + message.getToUserName());
         logger.info("content:" + MessageUtils.getChatRoomTextMessageContent(message.getContent()));
-        try {
-            messageListener.messageReceive(message);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+        messageListener.messageReceive(message);
     }
 
     @Override

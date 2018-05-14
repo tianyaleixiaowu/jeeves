@@ -45,7 +45,7 @@ public class SyncServie {
         }
     }
 
-    public void listen() throws IOException, URISyntaxException {
+    public void listen() throws Exception {
         SyncCheckResponse syncCheckResponse = wechatHttpService.syncCheck(
                 cacheService.getSyncUrl(),
                 cacheService.getBaseRequest().getUin(),
@@ -119,7 +119,7 @@ public class SyncServie {
         return message.getFromUserName() != null && message.getFromUserName().startsWith("@@");
     }
 
-    private void onNewMessage() throws IOException, URISyntaxException {
+    private void onNewMessage() throws Exception {
         SyncResponse syncResponse = sync();
         if (messageHandler == null) {
             return;

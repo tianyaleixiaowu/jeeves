@@ -24,6 +24,14 @@ public class RoomUserCache {
         return (List<User>) cache.get(roomId).get();
     }
 
+    public String getUserName() {
+         return (String) cache.get("username").get();
+    }
+
+    public void setUserName(String userName) {
+        cache.put("username", userName);
+    }
+
     public void setUsers(String roomId, List<User> users) {
         this.cache.put(roomId, users);
     }

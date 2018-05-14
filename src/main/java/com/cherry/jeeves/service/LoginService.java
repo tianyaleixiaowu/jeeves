@@ -41,7 +41,7 @@ public class LoginService {
 
     private int qrRefreshTimes = 0;
 
-    public void login() {
+    public void login() throws Exception {
         try {
             //0 entry
             wechatHttpServiceInternal.open(qrRefreshTimes);
