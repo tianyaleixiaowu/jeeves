@@ -40,6 +40,8 @@ public class MessageListener {
         //logger.info("to: " + message.getToUserName());
         String content = MessageUtils.getChatRoomTextMessageContent(message.getContent());
         try {
+
+            logger.info("开始入库");
             if (Common.containsEmoji(senderNickname)) {
                 senderNickname = Common.filterEmoji(senderNickname);
             }
@@ -49,6 +51,7 @@ public class MessageListener {
             messageManager.save(senderNickname, content);
         } catch (Exception e) {
             logger.error("senderNickname: " + senderNickname + " \nmessage:" + content);
+            logger.info("入库失败");
             e.printStackTrace();
         }
     }
